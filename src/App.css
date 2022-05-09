@@ -1,3 +1,20 @@
+@font-face {
+  font-family: 'Nunito';
+  src: local('Nunito'), url(./content/fonts/Nunito-Light.ttf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Nunito';
+    font-weight: 900;
+    src: local('Nunito'), url(./content/fonts/Nunito-Medium.ttf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: 900;
+    src: local('Nunito'), url(./content/fonts/Nunito-Regular.ttf) format('opentype');
+}
+
 .App {
   text-align: center;
 }
