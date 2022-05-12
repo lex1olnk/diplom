@@ -22,5 +22,5 @@ export const markerpos = {
 };
 
 export const places = [
-  floorfourth, svfu, guk, departments, ks
+  svfu, guk, departments, ks, floorfourth
 ]

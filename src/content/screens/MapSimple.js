@@ -21,8 +21,8 @@ const styles = {
   },
   result: {
     fillColor: 'green',
-    fillColor: '#fff',
-    weight: 1,
+    color: '#fff',
+    weight: 2,
     opacity: 1
   }
 };
@@ -54,6 +54,7 @@ const clickToFeature = (e) => {
 }
 
 const data = places => {
+  console.log(places)
   return (
     <div>
       {places.map(item => {
@@ -75,7 +76,7 @@ const MapSimple = props => {
           lng: data2.geometry.coordinates[0][0][0]
         })
       }
-      return <GeoJSON data={[data2]} style={styles.result}/>
+      return <GeoJSON data={[data2]} key={data2.properties.name} style={styles.result} onEachFeature={onEachFeature}/>
     }
   }
 
@@ -97,6 +98,7 @@ const MapSimple = props => {
         url="https://api.maptiler.com/maps/streets/256/{z}/{x}/{y}@2x.png?key=e65VFhNaAEo0l5tGguVF"
       />
        {searchResult()}
+       {data(props.data.places)}
        <Marker
         position={props.data.center}
         icon={ skater }

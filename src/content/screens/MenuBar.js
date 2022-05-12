@@ -76,18 +76,20 @@ const styles = {
 
 const search = item => {
   const result = []
-  places.map(buildings => {
-    buildings.features.map(place => {
-      const x = place
-      if (x.properties.name !== undefined) {
-        if (x.properties.name.includes(item)) {
-          result.push(x)
-          console.log(x, 'got')
+  if (item.length > 0) {
+    places.map(buildings => {
+      buildings.features.map(place => {
+        const x = place
+        if (x.properties.name !== undefined) {
+          if (x.properties.name.includes(item)) {
+            result.push(x)
+            console.log(x, 'got')
+          }
         }
-      }
-      /// console.log(x)
+        /// console.log(x)
+      })
     })
-  })
+  }
   console.log(result)
   console.log('pressed', item)
   return result
@@ -140,14 +142,18 @@ const MenuBar = () => {
             width: '100%',
             margin: '10px auto'
           }}>
-            {(items.length != 0 && text.length > 0)
+            {(items.length != 0)
               ? items.map(item =>
-                <div key={item.properties.name} style={ styles.searchItem } onClick={() => { dispatch(setItem(item)) }}>
+                <div 
+                  key={item.properties.name} 
+                  style={ styles.searchItem } 
+                  onClick={() => { dispatch(setItem(item)) }}
+                >
                   {item.properties.name }
                   <br />Номер кабинета {item.properties.number}
                 </div>
               )
-              : 'aaaaaaaaaaaa'}
+              : 'Ничего не найдено'}
           </div>
         </div>
         <div style={styles.buttons}>
