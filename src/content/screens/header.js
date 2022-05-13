@@ -19,7 +19,7 @@ const styles = {
     margin: '0 auto',
   },
   nav_a: {
-    fontFamily: 'Nunito',
+    fontFamily: 'HelveticaNeue',
     textDecoration: 'none',
     fontSize: '24px',
     color: 'white',

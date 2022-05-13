@@ -49,7 +49,7 @@ const styles = {
   menuTitle: {
     fontSize: 20,
     fontAlign: 'center',
-    fontFamily: 'Nunito',
+    fontFamily: 'HelveticaNeue',
     fontStyle: 'Medium',
     margin: '0 auto'
   },
@@ -97,9 +97,10 @@ const search = item => {
 
 const MenuBar = () => {
   const [text, setText] = useState('');
+  const [pressed, setPressed] = useState(false)
   const [items, setItems] = useState([]);
   const dispatch = useDispatch();
-
+  console.log(pressed)
   return (
     <div style={styles.menuBar}>
       <div style={styles.container}>
@@ -116,7 +117,9 @@ const MenuBar = () => {
               type="text"
               name="Поиск"
               placeholder='Поиск'
-              onChange={txt => setText(txt.target.value)}
+              onChange={txt => {
+                setText(txt.target.value)
+              }}
             />
             <button
               type="submit"
@@ -126,7 +129,10 @@ const MenuBar = () => {
                 padding: 0,
                 height: '40px'
               }}
-              onClick={() => setItems(search(text))}
+              onClick={() => {
+                setItems(search(text))
+                setPressed(true)
+              }}
             >
               <img
                 src={ searchlogo }
@@ -138,22 +144,27 @@ const MenuBar = () => {
             position: 'fixed',
             // top: 0,
             background: '#09304A',
-            height: '20px',
+            height: (text.length > 0 && pressed) ? '100%' : 0,
             width: '100%',
             margin: '10px auto'
           }}>
-            {(items.length != 0)
-              ? items.map(item =>
-                <div 
-                  key={item.properties.name} 
-                  style={ styles.searchItem } 
-                  onClick={() => { dispatch(setItem(item)) }}
-                >
-                  {item.properties.name }
-                  <br />Номер кабинета {item.properties.number}
-                </div>
-              )
-              : 'Ничего не найдено'}
+            {(pressed)
+              ? (items.length != 0)
+                  ? items.map(item =>
+                  <div 
+                    key={item.properties.name} 
+                    style={ styles.searchItem } 
+                    onClick={txt => { 
+                      dispatch(setItem(item)) 
+                      setPressed(false)
+                    }}
+                  >
+                    {item.properties.name }
+                    <br />Номер кабинета {item.properties.number}
+                  </div>
+                  )
+                  : 'Ничего не найдено'
+              : ''}
           </div>
         </div>
         <div style={styles.buttons}>
