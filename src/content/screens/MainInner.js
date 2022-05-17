@@ -1,19 +1,14 @@
-import React from 'react';
-import { bg, pixelImg } from '../consts/variables';
+import React from 'react'
+import { bg, studgorod, logo } from '../consts/variables'
 
 const styles = {
   container: {
     width: '70%',
     margin: '0 auto',
-    height: '100%',
-  },
-  innerEl: {
-    background: '#001324',
-    height: '1000px',
+    height: '100%'
   },
   searchEl: {
-    backgroundImage: `url(${bg})`,
-    height: '1400px',
+    height: '1000px',
     width: '100%',
   },
   searchElTitle: {
@@ -23,7 +18,7 @@ const styles = {
     justifyContent: 'center',
   },
   searchElTitleText: {
-    fontFamily: 'Miratrix',
+    fontFamily: 'HelveticaNeue',
     color: 'white',
     fontSize: '84px',
   },
@@ -33,42 +28,54 @@ const styles = {
     color: 'white',
   },
   innerElText: {
+    fontFamily: 'HelveticaNeue',
     textAlign: 'center',
     fontSize: '24px',
     color: 'white',
   },
   innerElImg: {
+    width: '100%',
     display: 'flex',
     margin: '0 auto',
   },
-};
+}
 
-function MainInner() {
+const MainInner = () => {
   return (
     <div>
       <div style={styles.searchEl}>
         <div style={{ ...styles.container }}>
           <div style={styles.searchElTitle}>
-            <div style={styles.searchElTitleText}>Путеводитель студента</div>
+            <div>
+              <div style={styles.searchElTitleText}>
+                Путеводитель по студгородку
+              </div>
+              <div style={styles.innerElText}>
+                Студенческий городок СВФУ «Сергелях»  – 
+                Развитая инфраструктура создает все необходимые условия для обучения 
+                и организации досуга иногородних и иностранных студентов.  
+              </div>
+            </div>
+            <div>
+              <img 
+                src={logo}
+              />
+            </div>
           </div>
         </div>
       </div>
       <div style={styles.innerEl}>
         <div style={styles.container}>
-
-          <div style={styles.innerElTitle}>
-            Добро пожаловать в Путеводитель!
-          </div>
-          <div style={styles.innerElText}>
-            Студенческий городок СВФУ «Сергелях»  – Развитая инфраструктура создает все необходимые условия для обучения и организации досуга иногородних и иностранных студентов.
-          </div>
           <div>
-            <img style={styles.innerElImg} src={pixelImg} />
+            <img 
+              style={styles.innerElImg} 
+              src={studgorod}
+            />
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default MainInner;

@@ -15,15 +15,15 @@
 }
 
 @font-face {
-    font-family: 'HelveticaNeue';
+    font-family: 'HelveticaNeueBold';
     font-weight: 900;
-    src: local('HelveticaNeue'), url(./content/fonts/HelveticaNeueCyr-Bold.ttf) format('opentype');
+    src: local('HelveticaNeueBold'), url(./content/fonts/HelveticaNeueCyr-Bold.ttf) format('opentype');
 }
 
 @font-face {
-    font-family: 'HelveticaNeue';
+    font-family: 'HelveticaNeueMedium';
     font-weight: 600;
-    src: local('HelveticaNeue'), url(./content/fonts/HelveticaNeueCyr-Medium.ttf) format('opentype');
+    src: local('HelveticaNeueMedium'), url(./content/fonts/HelveticaNeueCyr-Medium.ttf) format('opentype');
 }
 
 

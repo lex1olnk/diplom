@@ -1,8 +1,10 @@
-import React from 'react';
-import Header from './header';
-
-import { bg, pixelImg } from '../consts/variables'
+import React, { useState } from 'react';
+import { color2 } from '../consts/variables'
 import icon from '../images/icons/icon.png'
+import { useNavigate } from 'react-router-dom'
+import { Line, search } from '../consts/functions'
+import { setItem } from '../store/tasks';
+import { useDispatch } from 'react-redux';
 
 const styles = {
   container: {
@@ -10,54 +12,23 @@ const styles = {
     margin: '0 auto',
     height: '100%'
   },
-  innerEl: {
-    background: '#001324',
-    height: '1000px'
-  },
-  searchEl: {
-    backgroundImage: `url(${bg})`,
-    height: '1400px',
-    width: '100%',
-  },
-  searchElTitle: {
-    height: '1000px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  searchElTitleText: {
-    fontFamily: 'Miratrix',
-    color: 'white',
-    fontSize: '84px',
-  },
-  innerElTitle: {
-    textAlign: 'center',
-    fontSize: '36px',
-    fontFamily: 'Nunito',
-    color: 'white',
-  },
   innerElText: {
     textAlign: 'center',
     fontSize: '24px',
     color: 'white',
-  },
-  innerElImg: {
-    display: 'flex',
-    margin: '0 auto',
   },
   searchLogo: {
     width: 25,
     height: 25,
   },
   columns: {
-    backgroundColor: '#1D135B',
-    width: 330,
-    height: 275,
+    background: color2,
+    width: 275,
+    height: 300,
     display: 'flex',
     borderRadius: 15,
     flexDirection: 'column',
     justifyContent: 'center',
-    margin: '15px 50px',
     fontAlign: 'center'
   },
   buttons: {
@@ -70,7 +41,7 @@ const styles = {
   },
   columnText: {
     fontSize: 24,
-    color: 'white',
+    color: 'blackg',
     fontFamily: 'Nunito',
     margin: '15px auto'
   },
@@ -87,25 +58,52 @@ const styles = {
     height: '20px',
     padding: '10px',
     resize: 'none',
+  },
+  results: {
+    width: '100%',
+    background: '#E8DCC6',
+  },
+  searchItem: {
+    height: '100px',
+    width: '80%',
+    margin: '100px auto'
+  },
+  searchItemBigText: {
+    fontSize: '28px',
+    fontFamily: 'HelveticaNeueMedium'
+  },
+  searchItemText: {
+    display: 'flex',
+    fontSize: '20px',
+    fontFamily: 'HelveticaNeueMedium'
+  },
+  searchItemColumn: {
+    display: 'flex', 
+    flexDirection: 'row', 
+    justifyContent: 'space-between',
+    margin: '10px 0'
   }
 }
 
-const Main = () => {
+const FaqPage = () => {
+  const [mode, setMode] = useState(false)
+  const [text, setText] = useState('');
+  const [pressed, setPressed] = useState(false)
+  const [items, setItems] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const navigateToMap = () => {
+    navigate('/map')
+  }
   return (
     <div>
-      <Header />
-      <div>
-        <div style={{ ...styles.container }}>
-          <div style={styles.searchElTitle}>
-              Путеводитель студента
-          </div>
-        </div>
         <div style={styles.container}>
+          {Line(3)}
           <div style={styles.blocks}>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', margin: '15px 0' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <div style={styles.columns}>
                 <img src={icon} style={ styles.img }></img>
-                <div style={ styles.columnText }>Студенческие организации</div>
+                <div style={ styles.columnText }>СтудОрги</div>
               </div>
               <div style={styles.columns}>
                 <img src={icon} style={ styles.img }></img>
@@ -115,36 +113,75 @@ const Main = () => {
                 <img src={icon} style={ styles.img }></img>
                 <div style={ styles.columnText }>Справки, документы</div>
               </div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <div style={styles.columns}>
-                <img src={icon} style={ styles.img }></img>
-                <div style={ styles.columnText }>Творческие центры</div>
-              </div>
               <div style={styles.columns}>
                 <img src={icon} style={ styles.img }></img>
                 <div style={ styles.columnText }>Общежития</div>
               </div>
             </div>
-          </div>
-          <div>line</div>
-          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-            <div style={styles.results}>
-              results
-            </div>
-            <div>
-              <div style={styles.innerElTitle}>
-                Поиск
-              </div>
+          {Line(5)}
+              <textarea 
+                style={ styles.textArea } 
+                placeholder='Поиск'
+                onChange={txt => {
+                  setText(txt.target.value)
+                }}
+              />
               <div>
-                <textarea style={ styles.textArea } placeholder='Поиск'/>
+                <input type="checkbox" checked={mode} onChange={() => { 
+                  setMode(!mode)
+                  console.log(mode) 
+                }}/>
+                <input type="checkbox" checked={!mode} onChange={() => setMode(!mode)} />
               </div>
+              <button 
+                style={{ display: 'flex', padding: '15px 30px', display: 'flex', background: 'white', borderRadius: '2px', margin: '0 auto' }}
+                onClick={() => {
+                  setItems(search(text, mode))
+                  setPressed(true)
+                }}
+              >
+                Найти
+              </button>
+              <div style={styles.results}>
+                <div style={{ ...styles.searchItem, ...styles.searchItemBigText, margin: '0 auto', paddingTop: '25px', height: 0, marginTop: '50px' }}>
+                  Результаты поиска:
+                </div>
+                {(pressed)
+                  ? (items.length != 0)
+                      ? items.map(item =>
+                      <div 
+                        key={item.properties.name} 
+                        style={ styles.searchItem } 
+                        onClick={txt => { 
+                          dispatch(setItem(item)) 
+                          navigateToMap()
+                        }}
+                      >
+                        <div style={ styles.searchItemBigText }>
+                          {mode ? item.properties.name : item.properties.number }
+                        </div>
+                        <div style={ styles.searchItemColumn }>
+                          <div style={ styles.searchItemText }>Расположение:</div> 
+                          <div style={{ ...styles.searchItemText, fontFamily: 'HelveticaNeue', right: 0 }}>{item.properties.address} Кулаковского 44</div>
+                        </div>
+                        <div style={ styles.searchItemColumn }>
+                          <div style={ styles.searchItemText }>Время работы:</div> 
+                          <div style={{ ...styles.searchItemText, fontFamily: 'HelveticaNeue', right: 0 }}>{item.properties.address} с 8:00 до 23:00</div>
+                        </div>
+                        {Line(3)}
+                      </div>
+                      )
+                      : <div style={{ ...styles.searchItem, justifyContent: 'center' }}>
+                          <div style= {{ ...styles.searchItemText, margin: 'auto' }}>
+                            Ничего не найдено
+                          </div>
+                        </div>
+                  : ''}
             </div>
-          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default Main;
+export default FaqPage;

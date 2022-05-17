@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MapSimple from './MapSimple';
-import { center, markerpos, places } from '../consts/variables';
+import { center, markerpos, places, rooms } from '../consts/variables';
 
 const MapContent = () => {
   return (
@@ -8,7 +8,8 @@ const MapContent = () => {
       <MapSimple data={{
         center,
         marker: markerpos,
-        places: places
+        places: places,
+        rooms: rooms
       }}
       />
     </div>

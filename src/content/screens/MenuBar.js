@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import logo from '../images/logo.png'
-import searchlogo from '../images/icons/search.png'
-import eat from '../images/icons/eat.png'
-import apteka from '../images/icons/apteka.png'
-import product from '../images/icons/product.png'
-import uslugi from '../images/icons/uslugi.png'
-import { places } from '../consts/variables'
+
+import { search } from '../consts/functions'
 import { setItem } from '../store/tasks';
 import { useDispatch } from 'react-redux';
+
+import { searchlogo, eat, product, apteka, uslugi, imilogo } from '../consts/variables'
 
 const styles = {
   menuBar: {
@@ -74,38 +71,16 @@ const styles = {
   }
 }
 
-const search = item => {
-  const result = []
-  if (item.length > 0) {
-    places.map(buildings => {
-      buildings.features.map(place => {
-        const x = place
-        if (x.properties.name !== undefined) {
-          if (x.properties.name.includes(item)) {
-            result.push(x)
-            console.log(x, 'got')
-          }
-        }
-        /// console.log(x)
-      })
-    })
-  }
-  console.log(result)
-  console.log('pressed', item)
-  return result
-}
-
 const MenuBar = () => {
   const [text, setText] = useState('');
   const [pressed, setPressed] = useState(false)
   const [items, setItems] = useState([]);
   const dispatch = useDispatch();
-  console.log(pressed)
   return (
     <div style={styles.menuBar}>
       <div style={styles.container}>
         <div>
-          <img src={logo} style={styles.logo}/>
+          <img src={imilogo} style={styles.logo}/>
         </div>
         <div style={ styles.menuTitle }>
           Путеводитель по студгородку

@@ -4,7 +4,7 @@ const styles = {
   header: {
     position: 'fixed',
     top: 0,
-    background: '#09304A',
+    background: '#39607A',
     height: '50px',
     width: '100%',
   },
@@ -35,7 +35,6 @@ const Header = () => {
         <div style={styles.nav}>
           <a href="/" style={styles.nav_a}>НА ГЛАВНУЮ</a>
           <a href="/Map" style={styles.nav_a}>КАРТА</a>
-          <a href="/Faq" style={styles.nav_a}>СПРАВОЧНИК</a>
         </div>
       </div>
     </header>
