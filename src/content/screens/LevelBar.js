@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { auth } from '../store/tasks'
+import ReactDOM from 'react-dom';
 
 const styles = {
   levelBar: {
@@ -14,7 +15,7 @@ const styles = {
 }
 
 const LevelBar = () => {
-  const [level, setLevel] = useState(0);
+  const [level, setLevel] = useState(2);
   auth.dispatch({ type: 'setLevel', level });
   const change = op => {
     if (op === 'up') {
@@ -31,6 +32,7 @@ const LevelBar = () => {
       }
     }
   }
+  console.log(auth.getState().level + ' ' + level)
   return (
   <div style={ styles.levelBar }>
     <div style={{ display: 'flex', flexDirection: 'row' }}>

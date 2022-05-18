@@ -5,7 +5,7 @@ import FaqPage from './FaqPage';
 
 const Main = () => {
   return (
-    <div style={{ background: '#09304A' }}>
+    <div style={{ background: '#09304A', height: '100%' }}>
       <Header />
       <MainInner />
       <FaqPage />

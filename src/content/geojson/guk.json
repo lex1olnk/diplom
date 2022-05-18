@@ -5,10 +5,10 @@
   "timestamp": "2022-04-08T05:43:54Z",
   "name": "guk",
   "style": {
-    "fillColor": "blue",
-    "weight": "0.4",
-    "opacity": "0.7",
-    "color": "blue"
+    "fillColor": "#eeeeee",
+    "weight": "1",
+    "opacity": "1",
+    "color": "gray"
   },
   "features": [
     {

@@ -4,11 +4,12 @@
   "name": "svfu",
   "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
   "timestamp": "2022-04-08T05:16:39Z",
-  "svfu": {
-    "fillColor": "red",
+  "style" : {
+    "fillColor": "#ddd",
+    "fillOpacity": 1,
     "weight": 1,
     "opacity": 1,
-    "color": "red"
+    "color": "gray"
   },
   "features": [
     {

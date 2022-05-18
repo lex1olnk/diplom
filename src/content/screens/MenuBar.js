@@ -76,6 +76,7 @@ const MenuBar = () => {
   const [pressed, setPressed] = useState(false)
   const [items, setItems] = useState([]);
   const dispatch = useDispatch();
+  console.log(pressed)
   return (
     <div style={styles.menuBar}>
       <div style={styles.container}>
@@ -119,11 +120,12 @@ const MenuBar = () => {
             position: 'fixed',
             // top: 0,
             background: '#09304A',
-            height: (text.length > 0 && pressed) ? '100%' : 0,
-            width: '100%',
+            height: (text.length > 0 && pressed) ? '50px' : 0,
+            color: items.length > 0 ? 'black' : 'white',
+            width: '300px',
             margin: '10px auto'
           }}>
-            {(pressed)
+            {(pressed & text.length > 0)
               ? (items.length != 0)
                   ? items.map(item =>
                   <div 
@@ -149,26 +151,12 @@ const MenuBar = () => {
               <img src={eat} style={ styles.img }></img>
             </div>
             <div style={styles.columns}>
-            <div style={{ margin: '5px auto' }}>продукты</div>
-              <img src={product} style={ styles.img }></img>
-            </div>
-            <div style={styles.columns}>
-            <div style={{ margin: '5px auto' }}>аптека</div>
-              <img src={apteka} style={ styles.img }></img>
-            </div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <div style={styles.columns}>
-            <div style={{ margin: '5px auto' }}>услуги</div>
-              <img src={uslugi} style={ styles.img }></img>
-            </div>
-            <div style={styles.columns}>
               <div style={{ margin: '5px auto' }}>места</div>
               <img src={eat} style={ styles.img }></img>
             </div>
             <div style={styles.columns}>
-              <div style={{ margin: '5px auto' }}>спорт</div>
-              <img src={eat} style={ styles.img }></img>
+            <div style={{ margin: '5px auto' }}>аптека</div>
+              <img src={apteka} style={ styles.img }></img>
             </div>
           </div>
         </div>

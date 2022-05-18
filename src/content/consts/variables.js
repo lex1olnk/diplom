@@ -7,6 +7,8 @@ import eat from '../images/icons/eat.png'
 import apteka from '../images/icons/apteka.png'
 import product from '../images/icons/product.png'
 import uslugi from '../images/icons/uslugi.png'
+import male from '../images/icons/male.png'
+import female from '../images/icons/female.png'
 
 import svfu from '../geojson/svfu.json'
 import guk from '../geojson/guk.json'
@@ -22,7 +24,9 @@ export {
   eat, 
   apteka, 
   product, 
-  uslugi 
+  uslugi, 
+  male,
+  female
 };
 
 export const bg = background;
@@ -42,6 +46,6 @@ export const places = [
   svfu, guk, departments, ks, 
 ]
 
-export const rooms = {
-  kfen: [floor3], guk: [guk]
+export const floors = {
+  kfen: [0, 0, floor3, 0, 0]
 }

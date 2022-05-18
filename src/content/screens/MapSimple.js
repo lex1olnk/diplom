@@ -5,27 +5,31 @@ import {
 } from 'react-leaflet';
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css';
-import { useWindowDimensions } from '../consts/functions';
-import { useSelector } from 'react-redux';
+import { search, useWindowDimensions, searchResult, data, rooms } from '../consts/functions';
+import { useSelector, useDispatch } from 'react-redux';
 import { isMobile } from 'react-device-detect';
+import { auth, setItem } from '../store/tasks'
+import { male } from '../consts/variables'
 
 const skater = new L.Icon({
-  iconUrl: require('../images/icons/marker.png'),
-  iconSize: [25, 25]
+  iconUrl: male,
+  iconSize: [120, 100]
 });
 
 const styles = {
+  red: {
+    fillColor: '#EC526D'
+  },
   departments: {
     weight: 1,
-    fill_color: '#ffffff',
-    fill_opacity: 1,
+    fillColor: '#ffffff',
+    fillOpacity: 1,
     opacity: 1,
   },
   result: {
-    fillColor: 'green',
-    color: '#fff',
-    weight: 2,
-    opacity: 1
+    color: '#5FD888',
+    weight: 4,
+    opacity: 2,
   }
 };
 
@@ -56,53 +60,23 @@ const LocationMarker = () => {
       );
 }
 
-const onEachFeature = (feature, layer) => {
-  layer.bindPopup('<h5>' + feature.properties.name + '</h5> <p>' + feature.properties.number + '</p> <p>' + feature.properties.EntityHandle + '</p> ');
-  layer.on({
-    click: layer.openPopup(),
-
-    mouseout: e => {
-      layer.closePopup();
-    }
-  });
-}
-
-const data = places => {
-  return (
-    <div>
-      {places.map(item => {
-        return <GeoJSON key={item.name} data={item.features} style={item.style} onEachFeature={onEachFeature}/>
-      })}
-    </div>);
-};
-
 const MapSimple = props => {
+  const data2 = useSelector((state) => state.data.value);
   const [map, setMap] = useState(null);
   const [zoom, setZoom] = useState(19);
-  const data2 = useSelector((state) => state.data.value);
+  const level = props.data.bruh
   const sizes = useWindowDimensions();
-
-  console.log(props.data.rooms)
-
+  const dispatch = useDispatch();
   const GetZoomValue = () => {
-    if (map !== null) {
+    if (map) {
       map.on('zoomend', function() {
         setZoom(map.getZoom())
-      });  
+      });
     }
   }
 
-  const searchResult = () => {
-    if (data2 !== null) {
-      if (map) { 
-        map.flyTo({
-          lat: data2.geometry.coordinates[0][0][1],
-          lng: data2.geometry.coordinates[0][0][0]
-        })
-      }
-      return <GeoJSON data={[data2]} key={data2.properties.number} style={styles.result} onEachFeature={onEachFeature}/>
-    }
-  }
+  dispatch(setItem(null))
+
   return (
     <MapContainer
       style={{
@@ -120,13 +94,12 @@ const MapSimple = props => {
         attribution='copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://api.maptiler.com/maps/streets/256/{z}/{x}/{y}@2x.png?key=e65VFhNaAEo0l5tGguVF"
       />
-      {searchResult()}
-      {GetZoomValue()}
+      {searchResult(data2, map, styles.result)}
       {data(props.data.places)}
-      {zoom > 17 ? data([props.data.rooms.kfen[0]]) : ''}
+      {zoom > 17 ? rooms([props.data.floors.kfen[auth.getState().level]]) : undefined}
+      {GetZoomValue()}
       <Marker
         position={props.data.center}
-        icon={ skater }
       >
         <Popup>
           Center of the map
